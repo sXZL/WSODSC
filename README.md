@@ -12,7 +12,7 @@ Sincerely thanks for your recources.
 
 
 ## Additional resources
-[Google-drive](https://drive.google.com/drive/u/2/folders/1DYKIOrM0X3o_kdA-p932XYcIzku2fKAM)
+[Google-drive](https://drive.google.com/drive/folders/11xiHM1P65VXIa80zJb_OSjEtvIS7oc2L?usp=sharing)
 
 ##### Description 
  - selective\_search\_data: precomputed proposals of VOC 2007
@@ -24,13 +24,12 @@ Sincerely thanks for your recources.
 
 We follow the same installation steps with [wetectron](https://github.com/NVlabs/wetectron).
 
-Check [INSTALL.md](docs/INSTALL.md) for installation instructions.
-Check [GETTING_STARTED](docs/GETTING_STARTED.md) for detailed instrunctions. 
+- Check [INSTALL.md](https://github.com/NVlabs/wetectron/blob/master/docs/INSTALL.md) for installation instructions.
+- Check [GETTING_STARTED](https://github.com/NVlabs/wetectron/blob/master/docs/GETTING_STARTED.md) for detailed instrunctions. 
 
 
 #### Datasets
 For example, PASCAL VOC 2007 dataset
-
 
 1. Download the training, validation, test data and VOCdevkit
 
@@ -60,9 +59,9 @@ For example, PASCAL VOC 2007 dataset
 4. Create symlinks for the PASCAL VOC dataset
 
 	```Shell
-    	cd $FRCN_ROOT/data
-    	ln -s $VOCdevkit VOCdevkit2007
-    	```
+    cd $FRCN_ROOT/data
+    ln -s $VOCdevkit VOCdevkit2007
+    ```
 
 
 ## License
