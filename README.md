@@ -66,5 +66,8 @@ For example, PASCAL VOC 2007 dataset
 
 ## License
 
-This code is released under the MIT License (refer to the LICENSE file for details). 
+This code is released under the [Nvidia Source Code License](LICENSE). 
+
+This project is built upon [wetectron](https://github.com/facebookresearch/maskrcnn-benchmark), which is released under [Nvidia Source Code License](LICENSE).
+
 
