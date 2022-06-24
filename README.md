@@ -10,59 +10,71 @@ Our code is written based on [PyTorch](https://pytorch.org/) and [wetectron](htt
 
 Sincerely thanks for your recources.
 
-
-## Additional resources
-[Google-drive](https://drive.google.com/drive/folders/11xiHM1P65VXIa80zJb_OSjEtvIS7oc2L?usp=sharing)
-
-##### Description 
- - selective\_search\_data: precomputed proposals of VOC 2007
- - context\_proposals: precomputed context proposals
-
-
-## Prepare
-#### Installation
+## Installation
+### Requirements:
+- Python 3
+- Pytorch 1.5+
+- torchvision 
 
 We follow the same installation steps with [wetectron](https://github.com/NVlabs/wetectron).
 
 - Check [INSTALL.md](https://github.com/NVlabs/wetectron/blob/master/docs/INSTALL.md) for installation instructions.
-- Check [GETTING_STARTED](https://github.com/NVlabs/wetectron/blob/master/docs/GETTING_STARTED.md) for detailed instrunctions. 
 
 
-#### Datasets
-For example, PASCAL VOC 2007 dataset
+## Datasets
+For PASCAL VOC 2007 dataset, [download](http://host.robots.ox.ac.uk/pascal/VOC/voc2007/) and then
 
-1. Download the training, validation, test data and VOCdevkit
 
-	```Shell
-	wget http://host.robots.ox.ac.uk/pascal/VOC/voc2007/VOCtrainval_06-Nov-2007.tar
-	wget http://host.robots.ox.ac.uk/pascal/VOC/voc2007/VOCtest_06-Nov-2007.tar
-	wget http://host.robots.ox.ac.uk/pascal/VOC/voc2007/VOCdevkit_08-Jun-2007.tar
-	```
+```Shell
+mkdir -p datasets/voc
+ln -s /path_to_VOCdevkit/VOC2007 datasets/voc/VOC2007
+```
 
-2. Extract all of these tars into one directory named `VOCdevkit`
 
-	```Shell
-	tar xvf VOCtrainval_06-Nov-2007.tar
-	tar xvf VOCtest_06-Nov-2007.tar
-	tar xvf VOCdevkit_08-Jun-2007.tar
-	```
+## Proposals
+Download the proposals from [Google-drive](https://drive.google.com/drive/folders/11xiHM1P65VXIa80zJb_OSjEtvIS7oc2L?usp=sharing) first,
 
-3. It should have this basic structure
 
-	```Shell
-  	$VOCdevkit/                           # development kit
-  	$VOCdevkit/VOCcode/                   # VOC utility code
-  	$VOCdevkit/VOC2007                    # image sets, annotations, etc.
-  	# ... and several other directories ...
-  	```
+##### Description 
+ - selective\_search\_data: precomputed proposals of VOC 2007
+ - context\_proposals: precomputed context proposals
+ - pretrained\_models
 
-4. Create symlinks for the PASCAL VOC dataset
+```Shell
+mkdir proposal
+ln -s  /path/to/downloaded/files/*.pkl proposal/
+```
+ 
+ 
 
-	```Shell
-    cd $FRCN_ROOT/data
-    ln -s $VOCdevkit VOCdevkit2007
-    ```
+## Training
+```bash
+export NGPUS=1
+python -m torch.distributed.launch --nproc_per_node=$NGPUS tools/train_net.py \
+    --config-file "configs/ctx/mist-reg-ctx.yaml" --use-tensorboard \
+    OUTPUT_DIR /path/to/output/dir
+```
 
+## Evaluation
+The pretrained models can be found at [Google-drive](https://drive.google.com/drive/folders/11xiHM1P65VXIa80zJb_OSjEtvIS7oc2L?usp=sharing).
+Note that all these model were trained using 1 Nvidia V100 GPU(32GB) and Pytorch 1.7.
+
+## voc models
+
+| Train data        | Eval data        | Config                       | Backbone     | mAP    |
+|:------------------|------------------|------------------------------|--------------|-------:|
+| voc 2007          | voc 2007 test    | ctx/mist-reg-ctx.yaml          | VGG-16       | 54.2   |
+| voc 2012          | voc 2012 test    | voc/mist-reg-ctx-voc12.yaml        | VGG-16       | 48.3   |
+
+Here is an example to evaluate the released model:
+
+```bash
+export NGPUS=1
+python -m torch.distributed.launch --nproc_per_node=$NGPUS tools/test_net.py \
+    --config-file "configs/ctx/mist-reg-ctx.yaml" TEST.IMS_PER_BATCH 8 \
+    OUTPUT_DIR /path/to/output/dir \
+    MODEL.WEIGHT /path/to/model
+```
 
 ## License
 
