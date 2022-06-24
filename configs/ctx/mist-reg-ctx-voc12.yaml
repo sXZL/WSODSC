@@ -15,10 +15,10 @@ MODEL:
     POOLER_SCALES: (0.125,)
     FEATURE_EXTRACTOR: "VGG16.roi_head"
   ROI_WEAK_HEAD:
-    PREDICTOR: "OICRPredictorCTX" 
-    LOSS: "RoILoss"
-    OICR_P: 0.0
-    REGRESS_ON: False
+    PREDICTOR: "MISTPredictorCTX" # "MISTPredictor"
+    LOSS: "RoIRegLoss"
+    OICR_P: 0.15
+    REGRESS_ON: True
 DB:
   METHOD: 'none'
 DATASETS:
@@ -35,7 +35,7 @@ INPUT:
   MIN_SIZE_TEST: 800
   MAX_SIZE_TEST: 2000
 SOLVER:
-  IMS_PER_BATCH: 8
+  IMS_PER_BATCH: 2
   BASE_LR: 0.01
   WEIGHT_DECAY: 0.0001
   WARMUP_ITERS: 200
@@ -62,3 +62,5 @@ CTX:
   NUM_BRANCHES: 4
   COMB_CTX_METHOD: 'max'
   USE_CTX: 'add' 
+
+

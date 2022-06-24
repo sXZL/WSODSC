@@ -15,7 +15,7 @@ MODEL:
     POOLER_SCALES: (0.125,)
     FEATURE_EXTRACTOR: "VGG16.roi_head"
   ROI_WEAK_HEAD:
-    PREDICTOR: "OICRPredictorCTX" # "MISTPredictor"
+    PREDICTOR: "OICRPredictorCTX" 
     LOSS: "RoILoss"
     OICR_P: 0.15
     REGRESS_ON: False
@@ -25,8 +25,8 @@ DATASETS:
   TRAIN: ("voc_2007_train", "voc_2007_val")
   TEST: ("voc_2007_test",)
 PROPOSAL_FILES:
-  TRAIN: ('proposal/F32-F0_voc_2007_train.pkl','proposal/F32-F0_voc_2007_val.pkl')
-  TEST: ('proposal/F32-F0_voc_2007_test.pkl',)
+  TRAIN: ('proposal/G4-F32-O02_voc_2007_train.pkl','proposal/G4-F32-O02_voc_2007_val.pkl')
+  TEST: ('proposal/G4-F32-O02_voc_2007_test.pkl',)
 DATALOADER:
   SIZE_DIVISIBILITY: 32
 INPUT:
